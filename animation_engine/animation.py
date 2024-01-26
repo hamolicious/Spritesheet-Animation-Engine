@@ -24,7 +24,6 @@ class Animation:
     def reset(self) -> None:
         self._played = False
         self._frame_index = 0
-        self._frame_timer.reset()
 
     def get_frame(self) -> pygame.Surface:
         if self._played:

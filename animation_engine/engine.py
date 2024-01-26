@@ -45,7 +45,7 @@ class AnimationEngine:
 
     app = Preview()
     app.size = [
-      (self._frames[0].get_size()[0] * scale) * len(self._animations),
+      (self._frames[0].get_size()[0] * scale) * len(names),
       self._frames[0].get_size()[1] * scale,
     ]
     app.run()
