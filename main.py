@@ -64,10 +64,6 @@ class App:
     def loop(self) -> None:
         self.screen.fill('black')
 
-        width = self.surface[0].get_size()[0]
-        for i, img in enumerate(self.surface):
-            self.screen.blit(img, (i * width, 0))
-
         if self.key_press[pygame.K_ESCAPE]:
             pygame.quit()
             quit(0)
