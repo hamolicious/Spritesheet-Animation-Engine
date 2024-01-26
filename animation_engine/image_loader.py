@@ -14,6 +14,8 @@ class BaseImageLoader:
         raise NotImplementedError()
 
 
+# TODO: finish implementing and verifying this works
+# TODO: add testing
 class FramesLoader(BaseImageLoader):
     @classmethod
     def _check_path_valid(cls, path: str) -> bool:
