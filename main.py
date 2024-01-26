@@ -53,10 +53,11 @@ class App:
     def setup(self) -> None:
         frames = SpriteSheetLoader.load('assets/characters.png', [23, 4], row=1)
         animation_engine = AnimationEngine(frames)
-        animation_engine.register_animation(15, 'walk-left', range(0, 4))
-        animation_engine.register_animation(3, 'jump', [6, 7, 8, 7, 6], one_shot=True)
-        animation_engine.register_animation(3, 'hit', [0, 9, 10, 9], one_shot=True)
-        animation_engine.register_animation(3, 'punch', [11, 12, 13], one_shot=True)
+        animation_engine.register_animation(10, 'walk-left', range(0, 4))
+        animation_engine.register_animation(10, 'walk-right', range(0, 4), invert=True)
+        animation_engine.register_animation(5, 'jump', [6, 7, 8, 7, 6], one_shot=True)
+        animation_engine.register_animation(5, 'hit', [9, 10], one_shot=True)
+        animation_engine.register_animation(5, 'punch', [11, 12, 13], one_shot=True)
 
         animation_engine.preview_animation()
 

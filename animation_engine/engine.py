@@ -10,8 +10,8 @@ class AnimationEngine:
     self._animations: dict[str, Animation] = {}
     self._current_animation: Animation = None
 
-  def register_animation(self, fps: int, name: str, indices: list[int], one_shot: bool = False) -> None:
-    self._animations[name] = Animation(fps, self._frames, name, indices, one_shot)
+  def register_animation(self, fps: int, name: str, indices: list[int], one_shot: bool = False, invert: bool = False) -> None:
+    self._animations[name] = Animation(fps, self._frames, name, indices, one_shot, invert)
 
   def preview_animation(self, *names: str, scale: int = 5, background_color: list[int] = None) -> None:
     if len(names) == 0:

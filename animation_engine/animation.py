@@ -4,16 +4,28 @@ from .timer import Timer
 
 
 class Animation:
-    def __init__(self, fps: int, frames: list[pygame.Surface], name: str, indices: list[int], one_shot:bool=False) -> None:
+    def __init__(self, fps: int, frames: list[pygame.Surface], name: str, indices: list[int], one_shot:bool=False, invert: bool = False) -> None:
         self._name = name
         self._one_shot = one_shot
         self._frames = tuple([frames[i] for i in indices])
+
+        if invert:
+            self._frames = self._invert_surfaces(self._frames)
+
         self._played = False
 
         self._fps = fps
         self._frame_timer = Timer(1 / fps)
         self._frame_index = 0
         self._last_frame = self._frames[0]
+
+    def _invert_surfaces(self, surfaces: list[pygame.Surface]) -> list[pygame.Surface]:
+        new_surfaces = []
+        for surf in surfaces:
+            new_surfaces.append(
+                pygame.transform.flip(surf, flip_x=True, flip_y=False)
+            )
+        return new_surfaces
 
     def is_one_shot(self) -> bool:
         return self._one_shot
