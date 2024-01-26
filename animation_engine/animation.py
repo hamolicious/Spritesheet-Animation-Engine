@@ -27,6 +27,13 @@ class Animation:
             )
         return new_surfaces
 
+    def set_fps(self, new_fps: int) -> None:
+        self._fps = new_fps
+        self._frame_timer = Timer(1 / new_fps)
+
+    def get_fps(self) -> int:
+        return self._fps
+
     def is_one_shot(self) -> bool:
         return self._one_shot
 
