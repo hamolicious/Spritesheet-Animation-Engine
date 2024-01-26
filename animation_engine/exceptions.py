@@ -1,0 +1,3 @@
+
+class NoSuchAnimationError(Exception):
+	...
