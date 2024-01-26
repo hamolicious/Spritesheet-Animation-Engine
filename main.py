@@ -58,7 +58,7 @@ class App:
         animation_engine.register_animation(3, 'hit', [0, 9, 10, 9], one_shot=True)
         animation_engine.register_animation(3, 'punch', [11, 12, 13], one_shot=True)
 
-        animation_engine.preview_animation('jump')
+        animation_engine.preview_animation()
 
     def loop(self) -> None:
         self.screen.fill('black')
