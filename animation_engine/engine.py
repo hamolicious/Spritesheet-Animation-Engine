@@ -28,14 +28,14 @@ class AnimationEngine:
           quit()
 
         self_child.screen.fill(
-          background_color if background_color is not None else [31, 31, 40]
+          background_color if background_color is not None else [50, 50, 60]
         )
 
         for animation_index, animation in enumerate(self_child.animations):
-          frame = animation.get_frame()
-
           if animation.is_finished():
             animation.reset()
+
+          frame = animation.get_frame()
 
           frame = pygame.transform.scale(frame, [
             frame.get_size()[0] * scale,
