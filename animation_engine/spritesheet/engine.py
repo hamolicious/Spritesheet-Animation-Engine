@@ -1,6 +1,6 @@
 import pygame
 from .animation import Animation
-from .test_app import BaseApp
+from ..test_app import BaseApp
 from .exceptions import NoSuchAnimationError
 
 

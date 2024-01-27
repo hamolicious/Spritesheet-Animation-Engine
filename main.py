@@ -1,5 +1,5 @@
 import pygame
-from animation_engine import AnimationEngine, SpriteSheetLoader
+from animation_engine import spritesheet
 
 
 class App:
@@ -51,8 +51,8 @@ class App:
             self.update_display()
 
     def setup(self) -> None:
-        frames = SpriteSheetLoader.load('assets/characters.png', [23, 4], row=1)
-        animation_engine = AnimationEngine(frames)
+        frames = spritesheet.SpriteSheetLoader.load('assets/characters.png', [23, 4], row=1)
+        animation_engine = spritesheet.AnimationEngine(frames)
         animation_engine.register_animation(10, 'walk-left', range(0, 4))
         animation_engine.register_animation(10, 'walk-right', range(0, 4), invert=True)
         animation_engine.register_animation(5, 'jump', [6, 7, 8, 7, 6], one_shot=True)
