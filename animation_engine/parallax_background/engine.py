@@ -44,7 +44,7 @@ class AnimationEngine:
             background_color if background_color is not None else [50, 50, 60]
         )
 
-        frame = self_child.parallax_engine.update(0.05 * self_child.delta_time)
+        frame = self_child.parallax_engine.update(0.01 * self_child.delta_time)
 
         frame = pygame.transform.scale(frame, [
             frame.get_size()[0] * scale,

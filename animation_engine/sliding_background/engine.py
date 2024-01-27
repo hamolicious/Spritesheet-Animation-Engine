@@ -87,5 +87,4 @@ class AnimationEngine:
         int(pane.pos[1]),
       ))
 
-    pygame.draw.rect(self._surface, 'red', [(0, 0), self._surface.get_size()], 1)
     return self._surface
