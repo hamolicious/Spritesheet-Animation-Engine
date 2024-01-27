@@ -1,3 +1,6 @@
 
 class NoSuchAnimationError(Exception):
 	...
+
+class NoSuchLocationError(Exception):
+	...

@@ -1,7 +1,7 @@
 import pygame
 from .animation import Animation
 from ..test_app import BaseApp
-from .exceptions import NoSuchAnimationError
+from ..common.exceptions import NoSuchAnimationError
 
 
 class AnimationEngine:
@@ -20,8 +20,6 @@ class AnimationEngine:
     class Preview(BaseApp):
       def setup(self_child) -> None:
         self_child.animations = [self._animations.get(name) for name in names]
-        if self_child.animations is None:
-          raise NoSuchAnimationError(names)
 
       def loop(self_child) -> None:
         if self_child.key_press[pygame.K_ESCAPE]:

@@ -1,5 +1,7 @@
 import pygame
 from animation_engine import spritesheet
+from animation_engine import sliding_background
+from animation_engine import common
 
 
 class App:
@@ -51,15 +53,23 @@ class App:
             self.update_display()
 
     def setup(self) -> None:
-        frames = spritesheet.SpriteSheetLoader.load('assets/characters.png', [23, 4], row=1)
-        animation_engine = spritesheet.AnimationEngine(frames)
-        animation_engine.register_animation(10, 'walk-left', range(0, 4))
-        animation_engine.register_animation(10, 'walk-right', range(0, 4), invert=True)
-        animation_engine.register_animation(5, 'jump', [6, 7, 8, 7, 6], one_shot=True)
-        animation_engine.register_animation(5, 'hit', [9, 10], one_shot=True)
-        animation_engine.register_animation(5, 'punch', [11, 12, 13], one_shot=True)
+        # frames = common.SpriteSheetLoader.load('assets/characters.png', [23, 4], row=1)
+        # animation_engine = spritesheet.AnimationEngine(frames)
+        # animation_engine.register_animation(10, 'walk-left', range(0, 4))
+        # animation_engine.register_animation(10, 'walk-right', range(0, 4), invert=True)
+        # animation_engine.register_animation(5, 'jump', [6, 7, 8, 7, 6], one_shot=True)
+        # animation_engine.register_animation(5, 'hit', [9, 10], one_shot=True)
+        # animation_engine.register_animation(5, 'punch', [11, 12, 13], one_shot=True)
 
-        animation_engine.preview_animation()
+        # animation_engine.preview_animation()
+
+        frames = common.SingleImageLoader.load(
+            'assets/parallax/skill-desc_0000_foreground.png'
+        )
+        sliding_engine = sliding_background.AnimationEngine()
+        sliding_engine.register_location('city', frames)
+
+        sliding_engine.preview_animation('city')
 
     def loop(self) -> None:
         self.screen.fill('black')

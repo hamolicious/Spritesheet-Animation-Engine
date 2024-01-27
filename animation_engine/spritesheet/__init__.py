@@ -1,2 +1,2 @@
 from .engine import AnimationEngine
-from .image_loader import FramesLoader, SpriteSheetLoader
+from ..common.image_loader import FramesLoader, SpriteSheetLoader

@@ -1,6 +1,8 @@
 import pygame
 import os
 
+from pygame.surface import Surface as Surface
+
 
 class BaseImageLoader:
     _valid_file_ext = ['PNG', 'JPG', 'JPEG', 'GIF']
@@ -14,7 +16,6 @@ class BaseImageLoader:
         raise NotImplementedError()
 
 
-# TODO: finish implementing and verifying this works
 # TODO: add testing
 class FramesLoader(BaseImageLoader):
     @classmethod
@@ -28,6 +29,30 @@ class FramesLoader(BaseImageLoader):
                 return False
 
         return True
+
+    @classmethod
+    def load(cls, path: str) -> list[Surface]:
+        frames = []
+        for file in os.listdir(path):
+            frames.append(pygame.image.load(os.path.join(path, file)))
+
+        return frames
+
+
+class SingleImageLoader(BaseImageLoader):
+    @classmethod
+    def _check_path_valid(cls, path: str) -> bool:
+        if not os.path.exists(path):
+            return False
+
+        if path.split('.')[-1].upper() not in cls._valid_file_ext:
+            return False
+
+        return True
+
+    @classmethod
+    def load(cls, path: str) -> Surface:
+        return pygame.image.load(path)
 
 
 class SpriteSheetLoader(BaseImageLoader):

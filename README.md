@@ -8,3 +8,5 @@ _Docs coming later_
 ### References
 
 https://opengameart.org/content/a-platformer-in-the-forest
+https://opengameart.org/content/industrial-parallax-background
+
