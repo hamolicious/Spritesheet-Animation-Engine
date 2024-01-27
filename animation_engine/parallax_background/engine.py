@@ -54,8 +54,8 @@ class AnimationEngine:
 
     app = Preview()
     app.size = (
-        self._locations.get(name)[0]._screen_size[0] * scale,
-        self._locations.get(name)[0]._screen_size[1] * scale,
+        self._locations.get(name)[0]._current_slides[0].frame.get_size()[0] * scale,
+        self._locations.get(name)[0]._current_slides[0].frame.get_size()[1] * scale,
     )
     app.run()
 
@@ -68,12 +68,13 @@ class AnimationEngine:
       raise NoSuchLocationError(location_name)
 
     self._current_slides = loc
-    self._surface = pygame.Surface(self._current_slides[0]._screen_size, pygame.SRCALPHA, 32)
+    self._surface = pygame.Surface(pygame.display.get_window_size(), pygame.SRCALPHA, 32)
 
   def update(self, speed: int) -> pygame.Surface | None:
     for index, engine in enumerate(self._current_slides):
       parallax_speed = self._calculate_parallax_speed(speed, -index)
       layer = engine.update(parallax_speed)
-      self._surface.blit(layer, (0, abs(layer.get_size()[1] - self._current_slides[0]._screen_size[1])))
+
+      self._surface.blit(layer, (0, (self._surface.get_height() / 3) - layer.get_height())) # temp
 
     return self._surface

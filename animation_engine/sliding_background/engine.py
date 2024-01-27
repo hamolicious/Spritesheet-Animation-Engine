@@ -12,16 +12,16 @@ class AnimationEngine:
 
   def register_location(self, name: str, image: pygame.Surface, scroll_vector: ScrollVector = ScrollVector.LEFT) -> None:
     image_size = image.get_size()
+    self._locations[name] = []
+    for i in range(3):
+      offset = (
+        (i * image_size[0]) * -scroll_vector[0],
+        (i * image_size[1]) * -scroll_vector[1],
+      )
 
-    offset = (
-      image_size[0] * -scroll_vector[0],
-      image_size[1] * -scroll_vector[1],
-    )
+      self._locations[name].append(Pane(image, offset, scroll_vector))
 
-    self._locations[name] = (
-      Pane(image, (0, 0), scroll_vector),
-      Pane(image, offset, scroll_vector),
-    )
+
 
   def preview_animation(self, name: str, scale: int = 5) -> None:
     class Preview(BaseApp):
@@ -58,7 +58,10 @@ class AnimationEngine:
       raise NoSuchLocationError(location_name)
 
     self._current_slides = loc
-    self._screen_size = loc[0].frame.get_size()
+    self._screen_size = [
+        loc[0].frame.get_size()[0] * (2 if loc[0].direction[0] != 0 else 1),
+        loc[0].frame.get_size()[1] * (2 if loc[0].direction[0] != 0 else 1),
+    ]
     self._surface = pygame.Surface(self._screen_size, pygame.SRCALPHA, 32)
 
   def update(self, speed: float) -> pygame.Surface | None:
@@ -68,20 +71,21 @@ class AnimationEngine:
       pane.move(speed)
 
       if (pane.pos[0] <= -pane.frame.get_size()[0] and pane.direction[0] == -1):
-        pane.pos[0] += pane.frame.get_size()[0] * 2
+        pane.pos[0] += pane.frame.get_size()[0] * len(self._current_slides)
 
       if (pane.pos[0] >= pane.frame.get_size()[0] and pane.direction[0] == 1):
-        pane.pos[0] -= pane.frame.get_size()[0] * 2
+        pane.pos[0] -= pane.frame.get_size()[0] * len(self._current_slides)
 
       if (pane.pos[1] <= -pane.frame.get_size()[1] and pane.direction[1] == -1):
-        pane.pos[1] += pane.frame.get_size()[1] * 2
+        pane.pos[1] += pane.frame.get_size()[1] * len(self._current_slides)
 
       if (pane.pos[1] >= pane.frame.get_size()[1] and pane.direction[1] == 1):
-        pane.pos[1] -= pane.frame.get_size()[1] * 2
+        pane.pos[1] -= pane.frame.get_size()[1] * len(self._current_slides)
 
       self._surface.blit(pane.frame, (
         int(pane.pos[0]),
         int(pane.pos[1]),
       ))
 
+    pygame.draw.rect(self._surface, 'red', [(0, 0), self._surface.get_size()], 1)
     return self._surface
