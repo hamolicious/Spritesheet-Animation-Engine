@@ -1,8 +1,8 @@
 import pygame
 from ..test_app import BaseApp
 from ..common.exceptions import NoSuchLocationError
-from .scroll_vector import ScrollVector
-from .pane import Pane
+from ..common.scroll_vector import ScrollVector
+from ..common.pane import Pane
 
 
 class AnimationEngine:
@@ -59,29 +59,29 @@ class AnimationEngine:
 
     self._current_slides = loc
     self._screen_size = loc[0].frame.get_size()
-    self._surface = pygame.Surface(self._screen_size)
+    self._surface = pygame.Surface(self._screen_size, pygame.SRCALPHA, 32)
 
   def update(self, speed: float) -> pygame.Surface | None:
-    self._surface.fill('black')
+    self._surface.fill((0, 0, 0, 0))
 
     for pane in self._current_slides:
-        pane.move(speed)
+      pane.move(speed)
 
-        if (pane.pos[0] <= -pane.frame.get_size()[0] and pane.direction[0] == -1):
-          pane.pos[0] += pane.frame.get_size()[0] * 2
+      if (pane.pos[0] <= -pane.frame.get_size()[0] and pane.direction[0] == -1):
+        pane.pos[0] += pane.frame.get_size()[0] * 2
 
-        if (pane.pos[0] >= pane.frame.get_size()[0] and pane.direction[0] == 1):
-          pane.pos[0] -= pane.frame.get_size()[0] * 2
+      if (pane.pos[0] >= pane.frame.get_size()[0] and pane.direction[0] == 1):
+        pane.pos[0] -= pane.frame.get_size()[0] * 2
 
-        if (pane.pos[1] <= -pane.frame.get_size()[1] and pane.direction[1] == -1):
-          pane.pos[1] += pane.frame.get_size()[1] * 2
+      if (pane.pos[1] <= -pane.frame.get_size()[1] and pane.direction[1] == -1):
+        pane.pos[1] += pane.frame.get_size()[1] * 2
 
-        if (pane.pos[1] >= pane.frame.get_size()[1] and pane.direction[1] == 1):
-          pane.pos[1] -= pane.frame.get_size()[1] * 2
+      if (pane.pos[1] >= pane.frame.get_size()[1] and pane.direction[1] == 1):
+        pane.pos[1] -= pane.frame.get_size()[1] * 2
 
-        self._surface.blit(pane.frame, (
-          int(pane.pos[0]),
-          int(pane.pos[1]),
-        ))
+      self._surface.blit(pane.frame, (
+        int(pane.pos[0]),
+        int(pane.pos[1]),
+      ))
 
     return self._surface

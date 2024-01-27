@@ -1,6 +1,7 @@
 import pygame
 from animation_engine import spritesheet
 from animation_engine import sliding_background
+from animation_engine import parallax_background
 from animation_engine import common
 
 
@@ -63,13 +64,19 @@ class App:
 
         # animation_engine.preview_animation()
 
-        frames = common.SingleImageLoader.load(
-            'assets/parallax/skill-desc_0000_foreground.png'
-        )
-        sliding_engine = sliding_background.AnimationEngine()
-        sliding_engine.register_location('city', frames)
+        # frames = common.SingleImageLoader.load(
+        #     'assets/parallax/skill-desc_0000_foreground.png'
+        # )
+        # sliding_engine = sliding_background.AnimationEngine()
+        # sliding_engine.register_location('city', frames)
 
-        sliding_engine.preview_animation('city')
+        # sliding_engine.preview_animation('city')
+
+        frames = common.FramesLoader.load('assets/parallax/')
+        parallax_engine = parallax_background.AnimationEngine()
+        parallax_engine.register_location('city', frames[::-1])
+
+        parallax_engine.preview_animation('city')
 
     def loop(self) -> None:
         self.screen.fill('black')
