@@ -1,6 +1,6 @@
 from typing import Generator, Callable
 import pygame
-from .timer import Timer
+from ..common.timer import Timer
 
 
 class Animation:
